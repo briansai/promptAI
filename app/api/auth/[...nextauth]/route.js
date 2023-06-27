@@ -11,7 +11,15 @@ const handler = NextAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
   ],
-  async session({ session }) {},
+  async session({ session }) {
+    const sessionUser = await User.findOne({
+      email: session.user.mail,
+    });
+
+    session.user.id = sessionUser._id.toString();
+
+    return session;
+  },
   async signIn({ profile }) {
     try {
       await connectToDB();
@@ -27,7 +35,7 @@ const handler = NextAuth({
       }
       return true;
     } catch (err) {
-      console.log(error);
+      console.log(err);
       return false;
     }
   },
