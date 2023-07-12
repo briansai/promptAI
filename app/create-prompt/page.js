@@ -7,6 +7,9 @@ import { useRouter } from 'next/navigation';
 import Form from '@components/Form';
 
 const CreatePrompt = () => {
+  const router = useRouter();
+  const { data: session } = useSession();
+
   const [submitting, setSubmitting] = useState(false);
   const [post, setPost] = useState({
     prompt: '',
@@ -15,21 +18,23 @@ const CreatePrompt = () => {
 
   const createPrompt = async (e) => {
     e.preventDefault();
-    setSubmitting(True);
+    setSubmitting(true);
 
     try {
       const res = await fetch('/api/prompt/new', {
         method: 'POST',
-        body: JSON.stringify({ prompt: post.prompt }),
-        userId: session?.user.id,
-        tag: post.tag,
+        body: JSON.stringify({
+          prompt: post.prompt,
+          userId: session?.user.id,
+          tag: post.tag,
+        }),
       });
 
       if (res.ok) {
-        Router.push('/');
+        router.push('/');
       }
     } catch (err) {
-      console.log(error);
+      console.log(err);
     } finally {
       setSubmitting(false);
     }

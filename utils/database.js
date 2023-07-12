@@ -20,6 +20,6 @@ export const connectToDB = async () => {
     isConnected = true;
     console.log('MongoDB is now connected');
   } catch (error) {
-    console.log(error);
+    return new Response('Failed to create a new prompt', { status: 500 });
   }
 };
