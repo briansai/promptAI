@@ -23,29 +23,30 @@ const Feed = () => {
 
   const handleSearchChange = (e) => {};
 
+  const fetchPosts = async () => {
+    const response = await fetch('/api/prompt');
+    const data = await response.json();
+
+    setPosts(data);
+  };
+
   useEffect(() => {
-    const fetchPosts = async () => {
-      const response = await fetch('/api/prompt');
-      const data = await response.json();
-
-      setPosts(data);
-    };
-
     fetchPosts();
   }, []);
 
   return (
     <section className="feed">
-      <feed className="relative w-full flex-center">
+      <form className="relative w-full flex-center">
         <input
           type="text"
           placeholder="Search for a tag or username"
           value={searchText}
           onChange={handleSearchChange}
+          required
           className="search_input peer"
         />
-        <PromptCardList data={posts} handleTagClick={() => {}} />
-      </feed>
+      </form>
+      <PromptCardList data={posts} handleTagClick={() => {}} />
     </section>
   );
 };
