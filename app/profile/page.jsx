@@ -25,15 +25,13 @@ const MyProfile = () => {
 
   const handleDelete = async () => {};
   return (
-    <div>
-      <Profile
-        name="My"
-        desc="WElcome to your personalized profile page"
-        data={userPosts}
-        handleEdit={handleEdit}
-        handleDelete={handleDelete}
-      />
-    </div>
+    <Profile
+      name="My"
+      desc="Welcome to your personalized profile page"
+      data={userPosts}
+      handleEdit={handleEdit}
+      handleDelete={handleDelete}
+    />
   );
 };
 
